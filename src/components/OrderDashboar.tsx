@@ -38,14 +38,11 @@ export default function OrderDashboard({ initialOrders }: OrderDashboardProps) {
         socket.emit("joinAdmin");
 
         socket.on("newOrder", (newOrder: Order) => {
-            console.log("🚀 ~ socket.on ~ newOrder🚀", newOrder);
             setOrders((prev) => [newOrder, ...prev]);
             showNotification("New order received!", "success");
         });
 
         socket.on("orderUpdated", (updatedOrder: Order) => {
-            console.log("🚀 ~ socket.on ~ updatedOrder🚀", updatedOrder);
-
             setOrders((prev) => prev.map((order) => (order.id === updatedOrder.id ? updatedOrder : order)));
             showNotification("Order status updated", "info");
         });

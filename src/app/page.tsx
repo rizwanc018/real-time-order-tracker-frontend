@@ -11,12 +11,6 @@ export default function Home() {
             <div className="card">
                 <OrderForm />
             </div>
-
-            <div className="mt-8 text-center">
-                <p className="text-sm text-gray-500">
-                    Orders are processed in real-time. You will receive confirmation shortly.
-                </p>
-            </div>
         </div>
     );
 }
