@@ -153,7 +153,6 @@ export default function OrderForm() {
         );
     }
 
-    // Main Order Form View
     return (
         <div className="space-y-8">
             {/* Navigation Tabs */}
@@ -180,7 +179,6 @@ export default function OrderForm() {
                 </button>
             </div>
 
-            {/* Track Order Form */}
             {viewMode === "order" && !customerName && (
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
                     <h4 className="font-medium text-blue-900 mb-2">Want to track an existing order?</h4>
