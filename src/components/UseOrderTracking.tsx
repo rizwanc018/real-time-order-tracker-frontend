@@ -44,9 +44,9 @@ export default function UserOrderTracking({ customerName, onBack }: UserOrderTra
             try {
                 setLoading(true);
                 const res = await fetch(
-                    `${
-                        process.env.NEXT_PUBLIC_BACKEND_URL
-                    }/api/orders?customerName=${encodeURIComponent(customerName)}`
+                    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders?customerName=${encodeURIComponent(
+                        customerName
+                    )}`
                 );
 
                 if (!res.ok) {
@@ -76,8 +76,12 @@ export default function UserOrderTracking({ customerName, onBack }: UserOrderTra
     // Listen for real-time order updates
     useEffect(() => {
         if (!socket || !customerName) return;
+        
+        socket.emit("joinOrderRoom", customerName.toLowerCase());
 
         const handleOrderUpdate = (updatedOrder: Order) => {
+            console.log("🚀 ~ handleOrderUpdate ~ updatedOrder", updatedOrder)
+
             // Only update if this order belongs to the current user
             if (updatedOrder.customerName.toLowerCase() === customerName.toLowerCase()) {
                 setUserOrders((prev) =>
@@ -106,7 +110,7 @@ export default function UserOrderTracking({ customerName, onBack }: UserOrderTra
 
         const notification = document.createElement("div");
         notification.className =
-            "fixed top-4 right-4 px-6 py-4 rounded-lg text-white z-50 animate-slide-up bg-green-500 shadow-lg";
+            "fixed top-4 right-4 px-6 py-3 rounded-lg text-sm text-white z-50 animate-slide-up bg-green-500 shadow-lg";
         notification.innerHTML = `
             <div class="flex items-center space-x-2">
                 <span class="text-lg">${STATUS_STEPS.find((s) => s.key === status)?.icon || "🔔"}</span>
