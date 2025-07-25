@@ -3,16 +3,13 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { io, Socket } from "socket.io-client";
 
-// Define the shape of the context value
 interface SocketContextType {
     socket: Socket | null;
     isConnected: boolean;
 }
 
-// Create context with an initial undefined value
 const SocketContext = createContext<SocketContextType | undefined>(undefined);
 
-// Custom hook to access the socket context
 export function useSocket() {
     const context = useContext(SocketContext);
     if (!context) {
@@ -21,7 +18,6 @@ export function useSocket() {
     return context;
 }
 
-// Provider component
 export function SocketProvider({ children }: { children: ReactNode }) {
     const [socket, setSocket] = useState<Socket | null>(null);
     const [isConnected, setIsConnected] = useState(false);
@@ -43,7 +39,7 @@ export function SocketProvider({ children }: { children: ReactNode }) {
         setSocket(newSocket);
 
         return () => {
-            newSocket.disconnect(); // properly close connection
+            newSocket.disconnect(); 
         };
     }, []);
 

@@ -73,24 +73,17 @@ export default function UserOrderTracking({ customerName, onBack }: UserOrderTra
         }
     }, [customerName]);
 
-    // Listen for real-time order updates
     useEffect(() => {
         if (!socket || !customerName) return;
-        
+
         socket.emit("joinOrderRoom", customerName.toLowerCase());
 
         const handleOrderUpdate = (updatedOrder: Order) => {
-            console.log("🚀 ~ handleOrderUpdate ~ updatedOrder", updatedOrder)
 
-            // Only update if this order belongs to the current user
-            if (updatedOrder.customerName.toLowerCase() === customerName.toLowerCase()) {
-                setUserOrders((prev) =>
-                    prev.map((order) => (order.id === updatedOrder.id ? updatedOrder : order))
-                );
-
-                // Show notification for status updates
-                showStatusNotification(updatedOrder.status);
-            }
+            setUserOrders((prev) =>
+                prev.map((order) => (order.id === updatedOrder.id ? updatedOrder : order))
+            );
+            showStatusNotification(updatedOrder.status);
         };
 
         socket.on("orderUpdated", handleOrderUpdate);
