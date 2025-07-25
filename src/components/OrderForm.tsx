@@ -155,6 +155,10 @@ export default function OrderForm() {
 
     return (
         <div className="space-y-8">
+            <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">Place Your Order</h2>
+                <p className="text-gray-600 text-lg">Fill out the form below to place your order</p>
+            </div>
             {/* Navigation Tabs */}
             <div className="flex space-x-1 bg-gray-100 rounded-lg p-1">
                 <button
